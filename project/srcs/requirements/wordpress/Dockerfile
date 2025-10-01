@@ -1,14 +1,12 @@
-# Description: Wordpress Dockerfile
-
 # pull the base image
 FROM debian:12
 
 # update and upgrade the system
-RUN apt-get update && apt-get upgrade -y \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y 
 
 # install the required packages
-RUN apt-get install -y curl php php-fpm php-mysql mariadb-client
+RUN apt-get install -y curl php php-fpm php-mysql mariadb-client sendmail \
+    && rm -rf /var/lib/apt/lists/*
 
 # copy the wordpress configuration script to the root directory in the container
 COPY ./conf/wp_conf.sh /

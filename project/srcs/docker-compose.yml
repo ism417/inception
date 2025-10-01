@@ -39,6 +39,8 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+      redis:
+        condition: service_started
     volumes:
       - wordpress:/var/www/wordpress
     env_file :
@@ -70,6 +72,8 @@ services:
       - .env
     networks:
       - inception
+    depends_on:
+      - wordpress
     restart: always
 
 #adminer
@@ -95,20 +99,9 @@ services:
       - "80:80"
     networks:
       - inception
+    depends_on:
+      - nginx
     restart: always
-
-#portainer
-  portainer:
-    container_name: portainer
-    build:
-      context: ./requirements/bonus/portainer/
-      dockerfile: Dockerfile
-    networks:
-      - inception
-    volumes:
-      - portainer:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: on-failure
 
 # the volumes part
 volumes:
@@ -124,13 +117,6 @@ volumes:
     driver: local
     driver_opts:
       device: /home/eismail/data/wordpress
-      o : bind
-      type : none
-  portainer:
-    name: portainer
-    driver: local
-    driver_opts:
-      device: /home/eismail/data/portainer
       o : bind
       type : none
 

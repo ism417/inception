@@ -1,6 +1,5 @@
 WP_DATA = /home/eismail/data/wordpress #define the path to the wordpress data
 DB_DATA = /home/eismail/data/mariadb #define the path to the mariadb data
-PA_DATA = /home/eismail/data/portainer #define the path to the mariadb data
 
 # default target
 all: up
@@ -11,7 +10,6 @@ all: up
 up: build
 	@mkdir -p $(WP_DATA)
 	@mkdir -p $(DB_DATA)
-	@mkdir -p $(PA_DATA)
 	docker-compose -f ./srcs/docker-compose.yml up -d
 
 # stop the containers
@@ -43,7 +41,6 @@ clean:
 	docker network rm $$(docker network ls -q) || true
 	rm -rf $(WP_DATA) || true
 	rm -rf $(DB_DATA) || true
-	rm -rf $(PA_DATA) || true
 
 # clean and start the containers
 re: clean up

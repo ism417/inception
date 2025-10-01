@@ -4,11 +4,11 @@
 FROM debian:12
 
 # update and upgrade the system
-RUN apt-get update && apt-get upgrade -y \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y 
 
 # # install the required packages
-RUN apt-get install -y nginx openssl 
+RUN apt-get install -y nginx openssl \
+    && rm -rf /var/lib/apt/lists/* 
 
 # create the ssl directory
 RUN mkdir -p /etc/nginx/ssl

@@ -2,11 +2,11 @@
 FROM debian:12
 
 # update and upgrade the system
-RUN apt-get update && apt-get upgrade -y \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y 
 
 # # install the required packages
-RUN apt-get install -y mariadb-server netcat-traditional
+RUN apt-get install -y mariadb-server netcat-traditional \
+    && rm -rf /var/lib/apt/lists/*
 
 # copy file from host to container
 COPY ./conf/mdb-conf.sh /mdb-conf.sh
