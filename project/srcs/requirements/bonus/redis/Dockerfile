@@ -6,6 +6,4 @@ RUN apt-get update && apt-get install -y redis-server php-redis && \
 
 EXPOSE 6379
 
-#"redis-server" is a command that starts the Redis server
-#"--protected-mode no" which is a security feature that prevents Redis from accepting external connections by default
 CMD ["redis-server","--protected-mode no"]

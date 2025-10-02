@@ -96,11 +96,25 @@ services:
     container_name: website
     build: ./requirements/bonus/website
     ports:
-      - "80:80"
+      - "81:81"
     networks:
       - inception
     depends_on:
       - nginx
+    restart: always
+
+#portainer
+  portainer:
+    image: portainer:user
+    container_name: portainer
+    build: ./requirements/bonus/portainer
+    ports:
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - inception
     restart: always
 
 # the volumes part
@@ -119,6 +133,13 @@ volumes:
       device: /home/eismail/data/wordpress
       o : bind
       type : none
+  portainer_data:
+    name: portainer_data
+    driver: local
+    driver_opts:
+      device: /home/eismail/data/portainer
+      o: bind
+      type: none
 
 # the networks part
 networks:
